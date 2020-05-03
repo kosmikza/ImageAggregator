@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30011.22
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ImageAggregatorAPI", "ImageAggregatorAPI.csproj", "{5EDC192C-B08D-4C21-8E27-452F328BD7EA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{314A7242-450F-4BDD-B1AF-68E238DF30AF}"
+	ProjectSection(SolutionItems) = preProject
+		DbScript.sql = DbScript.sql
+		Readme.md = Readme.md
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5EDC192C-B08D-4C21-8E27-452F328BD7EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5EDC192C-B08D-4C21-8E27-452F328BD7EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5EDC192C-B08D-4C21-8E27-452F328BD7EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5EDC192C-B08D-4C21-8E27-452F328BD7EA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {831CFFF5-49BF-40C6-B75B-C93CCEA3BAFE}
+	EndGlobalSection
+EndGlobal

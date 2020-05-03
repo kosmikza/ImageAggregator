@@ -1,0 +1,163 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ImageAggregatorAPI</name>
+    </assembly>
+    <members>
+        <member name="M:ImmageAggregatorAPI.Controllers.ImageController.GetImage(System.Int64)">
+            <summary>
+            Retreives a full image ( meta, linked locations and blob )
+            </summary>
+            <param name="imageId"></param>
+            <returns>An complex image</returns>
+            <response code="200">Returns the image</response>
+            <response code="404">No image found</response>    
+        </member>
+        <member name="M:ImmageAggregatorAPI.Controllers.ImageController.GetImageBlobOnly(System.Int64)">
+            <summary>
+            Retreives just blob of an image
+            </summary>
+            <param name="imageBlobId"></param>
+            <returns>A byte array of the data only</returns>
+            <response code="200">Returns the byte array</response>
+            <response code="404">No image found</response>  
+        </member>
+        <member name="M:ImmageAggregatorAPI.Controllers.ImageController.GetImageMetaOnly(System.Int64)">
+            <summary>
+            Retreives an image's Meta data
+            </summary>
+            <param name="imageId"></param>
+            <returns>An image's meta data only</returns>
+            <response code="200">Returns the meta data</response>
+            <response code="404">No image found</response>  
+        </member>
+        <member name="M:ImmageAggregatorAPI.Controllers.ImageController.Find(System.String,System.String,System.String)">
+            <summary>
+            Searches amongst the saved images by the search terms (Max 20)
+            </summary>
+            <param name="imageName"></param>
+            <param name="city"></param>
+            <param name="countryCode"></param>
+            <returns>A list of saved images (Max of 20 based off query)</returns>
+            <response code="200">Returns the list</response>
+            <response code="404">No Locations were found</response>    
+        </member>
+        <member name="M:ImmageAggregatorAPI.Controllers.LocationsController.Find(System.String)">
+            <summary>
+            Searches amongst the saved locations by the search term
+            </summary>
+            <param name="locationName"></param>
+            <returns>A list of saved locations (Max of 20 based off query)</returns>
+            <response code="200">Returns the list</response>
+            <response code="404">No Locations were found</response>    
+        </member>
+        <member name="M:ImmageAggregatorAPI.Controllers.LocationsController.Get(System.Int64)">
+            <summary>
+            Retreives a saved location
+            </summary>
+            <param name="locationId"></param>
+            <returns>A saved location</returns>
+            <response code="200">Returns the location</response>
+            <response code="404">No Location found</response>    
+        </member>
+        <member name="M:ImmageAggregatorAPI.Controllers.LocationsController.RefreshImagesforLocation(System.Int64)">
+            <summary>
+            Queue a location for image refresh
+            </summary>
+            <param name="locationId"></param>
+            <returns>bool whether queued or not</returns>
+            <response code="200">Queued Succesfully</response>
+            <response code="404">Not Queued</response>    
+        </member>
+        <member name="M:ImmageAggregatorAPI.Controllers.LocationsController.GetAll">
+            <summary>
+            Retreives all locations (50 Max)
+            </summary>
+            <returns>All locations</returns>
+            <response code="200">Returns the locations</response>
+        </member>
+        <member name="M:ImmageAggregatorAPI.Controllers.LocationsController.GetImagesforLocation(System.Int64)">
+            <summary>
+            Retreives a list of images for a location
+            </summary>
+            <param name="locationId"></param>
+            <returns>A list of saved locations</returns>
+            <response code="200">Returns the list</response>
+            <response code="404">No images were found</response>    
+        </member>
+        <member name="M:ImmageAggregatorAPI.Controllers.LocationsController.Post(ImmageAggregatorAPI.Models.LocationDTO)">
+            <summary>
+            Saves a Location
+            </summary>
+            <remarks>
+            The name is passed but there is a possibilty of an incorrect location, please also use base country code ( ie: ZA for South Africa ) if it requires further filtering or the co-ordinates.
+            </remarks>
+            <returns>A saved location id</returns>
+            <response code="200">Returns the saved location data</response>
+            <response code="302">The location already exists</response>
+            <response code="500">Error while saving</response>  
+        </member>
+        <member name="M:ImmageAggregatorAPI.Controllers.LocationsController.GetUsersLocations">
+            <summary>
+            Gets a users favourite list
+            </summary>
+            <remarks>
+            This call requires authorisation of the user to ensure persistance
+            </remarks>
+            <returns>Saved favourites</returns>
+            <response code="200">Returns saved maps that are active</response>
+            <response code="500">Error while creating</response>  
+        </member>
+        <member name="M:ImmageAggregatorAPI.Controllers.LocationsController.PostUserLocationMap(ImmageAggregatorAPI.Models.UserLocationMapDTO)">
+            <summary>
+            Adds a location to a users favourite list
+            </summary>
+            <remarks>
+            This call requires authorisation of the user to ensure persistance
+            </remarks>
+            <returns>Saved favourite</returns>
+            <response code="200">Returns saved map</response>
+            <response code="500">Error while creating</response>  
+        </member>
+        <member name="M:ImmageAggregatorAPI.Controllers.LocationsController.DeleteUserLocationMap(System.Int64)">
+            <summary>
+            Removes a location from a users favourite list
+            </summary>
+            <remarks>
+            This call requires authorisation of the user to ensure persistance
+            </remarks>
+            <returns>A boolean whether was succesful or not</returns>
+            <response code="200">Returns true or false for success</response>
+            <response code="500">Error while updating</response>  
+        </member>
+        <member name="M:ImmageAggregatorAPI.Controllers.LocationsController.GetandStoreImages(ImmageAggregatorAPI.Models.Location)">
+            <summary>
+            Task that retreives and store image data for a location
+            </summary>
+            <remarks>
+            This task has been seperated to allow for running in background thread by adding it to the task scheduling engine. Updates are stored against the location object
+            </remarks>
+        </member>
+        <member name="M:ImmageAggregatorAPI.Controllers.UsersController.Authenticate(ImmageAggregatorAPI.Models.Users.AuthenticateModel)">
+            <summary>
+            Authenticates the user against a stored account
+            </summary>
+            <remarks>
+            This call will authenticate a user and return the neccesary bearer token to be used in subsequent authorised calls.
+            </remarks>
+            <returns>Authentication model</returns>
+            <response code="200">Returns authentication model</response>
+            <response code="401">Error while creating</response>  
+        </member>
+        <member name="M:ImmageAggregatorAPI.Controllers.UsersController.Register(ImmageAggregatorAPI.Models.Users.RegisterModel)">
+            <summary>
+            Register a user for an account
+            </summary>
+            <remarks>
+            This call will register a user allowing them to retreive a token later
+            </remarks>
+            <response code="200"></response>
+            <response code="401"></response>  
+        </member>
+    </members>
+</doc>
