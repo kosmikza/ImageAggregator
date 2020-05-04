@@ -238,6 +238,7 @@ namespace ImmageAggregatorAPI.Controllers
                         }
                         if (String.IsNullOrEmpty(location.LocationName))
                             return NotFound("Please re-submit,using a name or check the co-ordinates, no locations found for current values");
+                        location.LastRunStatus = "Queued for processing";
                         _context.Locations.Add(location);
                         await _context.SaveChangesAsync();
 
@@ -412,7 +413,8 @@ namespace ImmageAggregatorAPI.Controllers
                 {
                     #region Images
                     //Attempt Retreival from foursquare )
-                    var existingImage = context.Images.Where(x => x.FourSquareVenueId == fsVenue.id && x.ImageApiSource == (int)ImageApiSource.FourSquare).FirstOrDefault();
+                    var existingImage = context.Images.Where(x => x.ImageApiSource == (int)ImageApiSource.FourSquare &&
+                                      (x.FourSquareVenueId == fsVenue.id || (x.Latitude == fsVenue.location.lat && x.Longitude == fsVenue.location.lng))).FirstOrDefault();
                     if (existingImage == null && !fourSquareAPILimitExceeded)
                     {
                         apiurl = $"https://api.foursquare.com/v2/venues/{fsVenue.id}/photos?client_id={_config.GetValue<string>("FourSquare:ClientID")}&client_secret={_config.GetValue<string>("FourSquare:ClientSecret")}&v={DateTime.Now:yyyyMMdd}" +
